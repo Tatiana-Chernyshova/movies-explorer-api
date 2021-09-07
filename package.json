@@ -1,0 +1,34 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vladimir-Chernyshov/movies-explorer-api.git"
+  },
+  "keywords": [],
+  "author": "Chernyshov Vladimir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vladimir-Chernyshov/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Vladimir-Chernyshov/movies-explorer-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "mongoose": "^6.0.5",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "nodemon": "^2.0.12"
+  }
+}
