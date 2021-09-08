@@ -1,7 +1,7 @@
 const { celebrate, Joi } = require('celebrate');
 const router = require('express').Router();
 const {
-  aboutUser, updateUser, 
+  aboutUser, updateUser,
 } = require('../controllers/users');
 // const auth = require('../middlewares/auth');
 

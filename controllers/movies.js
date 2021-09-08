@@ -1,37 +1,68 @@
-// const Card = require('../model/movie');
-// const Error400 = require('../errors/error400');
+const Movie = require("../model/movie");
+const Error400 = require("../errors/error400");
 // const Error403 = require('../errors/error403');
 // const Error404 = require('../errors/error404');
 
-// const getCards = (req, res, next) => Card.find({})
-//   .then((cards) => res.status(200).send(cards))
+// const getMovies = (req, res, next) => Movie.find({})
+//   .then((movies) => res.status(200).send(movies))
 //   .catch((err) => next(err));
 
-// const createCard = (req, res, next) => {
-//   const { name, link } = req.body; // получим из объекта запроса имя и описание пользователя
-//   const { _id } = req.user;
-//   return Card.create({ name, link, owner: _id })
-//     .then((card) => res.send(card))
-//     .catch((err) => {
-//       if (err.name === 'ValidationError') {
-//         next(new Error400('Переданы некорректные данные при создании карточки'));
-//       }
-//       next(err);
-//     });
-// };
+const createMovie = (req, res, next) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+  } = req.body; // получим из объекта запроса имя и описание пользователя
+  // res.send(req.user)
+  // const { country, director } = req.body; // получим из объекта запроса имя и описание пользователя
+  const { _id } = req.user;
+  // return Movie.create({ name, link, owner: _id })
+  return Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+    owner: _id,
+  })
 
-// const deleteCard = (req, res, next) => {
-//   Card.findById({ _id: req.params.cardId })
+    .then((movie) => res.send(movie))
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        next(
+          new Error400("Переданы некорректные данные при создании фильма")
+        );
+      }
+      next(err);
+    });
+};
+
+// const deleteMovie = (req, res, next) => {
+//   Movie.findById({ _id: req.params.movieId })
 //     .orFail(() => {
 //       throw new Error404('Запрашиваемая карточка не найдена');
 //     })
-//     .then((card) => {
-//       if (req.user._id !== card.owner.toString()) {
+//     .then((movie) => {
+//       if (req.user._id !== movie.owner.toString()) {
 //         throw new Error403('Нельзя удалить чужую карточку');
 //       }
-//       card.remove();
+//       movie.remove();
 //       res.status(200)
-//         .send({ message: `Карточка с id ${card.id} успешно удалена!` });
+//         .send({ message: `Карточка с id ${movie.id} успешно удалена!` });
 //     })
 //     .catch((err) => {
 //       if (err.name === 'CastError') {
@@ -41,15 +72,15 @@
 //     });
 // };
 
-// const putLike = (req, res, next) => Card.findByIdAndUpdate(
-//   req.params.cardId,
+// const putLike = (req, res, next) => Movie.findByIdAndUpdate(
+//   req.params.movieId,
 //   { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
 //   { new: true },
 // )
 //   .orFail(() => {
 //     throw new Error404('Запрашиваемая карточка не найдена');
 //   })
-//   .then((card) => res.send(card))
+//   .then((movie) => res.send(movie))
 //   .catch((err) => {
 //     if (err.name === 'CastError') {
 //       next(new Error400('Переданы некорректные данные для постановки лайка'));
@@ -57,15 +88,15 @@
 //     next(err);
 //   });
 
-// const deleteLike = (req, res, next) => Card.findByIdAndUpdate(
-//   req.params.cardId,
+// const deleteLike = (req, res, next) => Movie.findByIdAndUpdate(
+//   req.params.movieId,
 //   { $pull: { likes: req.user._id } },
 //   { new: true },
 // )
 //   .orFail(() => {
 //     throw new Error404('Запрашиваемая карточка не найдена');
 //   })
-//   .then((card) => res.send(card))
+//   .then((movie) => res.send(movie))
 //   .catch((err) => {
 //     if (err.name === 'CastError') {
 //       next(new Error400('Переданы некорректные данные для снятия лайка'));
@@ -73,10 +104,10 @@
 //     next(err);
 //   });
 
-// module.exports = {
-//   getCards,
-//   createCard,
-//   deleteCard,
-//   putLike,
-//   deleteLike,
-// };
+module.exports = {
+  // getMovies,
+  createMovie,
+  // deleteMovie,
+  // putLike,
+  // deleteLike,
+};

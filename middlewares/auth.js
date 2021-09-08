@@ -22,6 +22,5 @@ module.exports = (req, res, next) => {
     next(new Error401('Необходима авторизация'));
   }
   req.user = payload; // записываем пейлоуд в объект запроса
-
   next(); // пропускаем запрос дальше
 };
