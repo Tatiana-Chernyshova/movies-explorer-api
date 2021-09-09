@@ -1,9 +1,3 @@
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
-// const User = require('../model/user');
-// const Error400 = require('../errors/error400');
-// const Error404 = require('../errors/error404');
-
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../model/user');
@@ -35,8 +29,10 @@ const updateUser = (req, res, next) => {
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         next(new Error400('Переданы некорректные данные при редактировании пользователя'));
+      } else if (err.code === 11000) {
+        next(new Error409('Данный email уже зарегистрирован'));
       }
       next(err);
     });
@@ -64,7 +60,7 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new Error400('Переданы некорректные данные при создании пользователя'));
-      } else if (err.name === 'MongoError' && err.code === 11000) {
+      } else if (err.name === 'MongoError' || err.code === 11000) {
         next(new Error409('Данный email уже зарегистрирован'));
       }
       next(err);
@@ -94,11 +90,6 @@ const login = (req, res, next) => {
           : 'some-secret-key',
         { expiresIn: '7d' },
       );
-      //       // res.cookie('jwt', token, {
-      //        //   maxAge: 3600000 * 24 * 7,
-      //        //   httpOnly: true,
-      //        //   sameSite: true,
-      //        // })
       return res.send({ token });
     })
     .catch(next);
