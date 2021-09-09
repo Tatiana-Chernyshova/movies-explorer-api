@@ -1,21 +1,19 @@
-const Movie = require("../model/movie");
-const Error400 = require("../errors/error400");
+const Movie = require('../model/movie');
+const Error400 = require('../errors/error400');
 const Error403 = require('../errors/error403');
 const Error404 = require('../errors/error404');
 
-const getMovies = (req, res, next) =>
-Movie.find({ owner: req.user._id})
-.then((movie) => {
-  res.status(200)
-    .send({ movie });
-})
-.catch((err) => {
-  if (err.name === 'CastError') {
-    next(new Error400('Переданы некорректные данные'));
-  }
-  next(err);
-});
-
+const getMovies = (req, res, next) => Movie.find({ owner: req.user._id })
+  .then((movie) => {
+    res.status(200)
+      .send({ movie });
+  })
+  .catch((err) => {
+    if (err.name === 'CastError') {
+      next(new Error400('Переданы некорректные данные'));
+    }
+    next(err);
+  });
 
 const createMovie = (req, res, next) => {
   const {
@@ -49,9 +47,9 @@ const createMovie = (req, res, next) => {
 
     .then((movie) => res.send(movie))
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         next(
-          new Error400("Переданы некорректные данные при создании фильма")
+          new Error400('Переданы некорректные данные при создании фильма'),
         );
       }
       next(err);
