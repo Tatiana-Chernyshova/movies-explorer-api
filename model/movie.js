@@ -4,27 +4,22 @@ const movieSchema = new mongoose.Schema({
   country: { // страна создания фильма
     type: String,
     required: true,
-    // minlength: 2,
   },
   director: { // режиссёр фильма
     type: String,
     required: true,
-    // minlength: 2,
   },
   duration: { // длительность фильма
     type: Number,
     required: true,
-    // minlength: 2,
   },
   year: { // год выпуска фильма
     type: String,
     required: true,
-    // minlength: 2,
   },
   description: { // описание фильма
     type: String,
     required: true,
-    // minlength: 2,
   },
   image: { // ссылка на постер к фильму
     type: String,
@@ -40,11 +35,10 @@ const movieSchema = new mongoose.Schema({
   },
   owner: { // _id пользователя, который сохранил фильм.
     type: mongoose.Schema.Types.ObjectId,
-    // required: true,
+    required: true,
   },
-  // проверка
   movieId: { // id фильма, который содержится в ответе сервиса MoviesExplorer
-    type: String, // проверка
+    type: String,
     required: true,
   },
   nameRU: { // название фильма на русском языке

@@ -8,8 +8,6 @@ const validateUrl = (value) => {
   throw new Error('Ошибка проверки URL');
 };
 
-// module.exports = validateUrl;
-
 const { celebrate, Joi } = require('celebrate');
 
 const validateLogin = celebrate({
