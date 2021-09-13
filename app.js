@@ -8,10 +8,11 @@ const cors = require('cors');
 const rootRouter = require('./routes/index');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const limiter = require('./middlewares/limiter');
+const limiter = require('./middlewares/rateLimiter');
 const corsOptions = require('./utils/corsOptions');
 
 require('dotenv').config();
+
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://localhost:27017/moviesdb',
@@ -19,8 +20,6 @@ const {
 
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
-  // useCreateIndex: true,
-  // useFindAndModify: false,
   useUnifiedTopology: true,
 });
 

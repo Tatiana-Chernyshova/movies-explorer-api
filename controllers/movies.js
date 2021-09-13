@@ -59,15 +59,15 @@ const createMovie = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   Movie.findById({ _id: req.params.movieId })
     .orFail(() => {
-      throw new Error404('Запрашиваемая карточка не найдена');
+      throw new Error404('Запрашиваемый фильм не найден');
     })
     .then((movie) => {
       if (req.user._id !== movie.owner.toString()) {
-        throw new Error403('Нельзя удалить чужую карточку');
+        throw new Error403('Нельзя удалить чужой фильм');
       }
       movie.remove();
       res.status(200)
-        .send({ message: `Карточка с id ${movie.id} успешно удалена!` });
+        .send({ message: `Фильм с id ${movie.id} успешно удален!` });
     })
     .catch((err) => {
       if (err.name === 'CastError') {

@@ -16,7 +16,13 @@ const aboutUser = (req, res, next) => {
       if (!user) {
         throw new Error404('Нет пользователя с таким id');
       }
-      res.status(200).send(user);
+      res.status(200).send({
+        user: {
+          email: user.email,
+          name: user.name,
+
+        },
+      });
     })
     .catch(next);
 };
