@@ -20,7 +20,6 @@ const aboutUser = (req, res, next) => {
         user: {
           email: user.email,
           name: user.name,
-
         },
       });
     })
