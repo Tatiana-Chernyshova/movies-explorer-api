@@ -9,9 +9,6 @@ const getMovies = (req, res, next) => Movie.find({ owner: req.user._id })
       .send({ movie });
   })
   .catch((err) => {
-    if (err.name === 'CastError') {
-      next(new Error400('Переданы некорректные данные'));
-    }
     next(err);
   });
 
@@ -65,9 +62,8 @@ const deleteMovie = (req, res, next) => {
       if (req.user._id !== movie.owner.toString()) {
         throw new Error403('Нельзя удалить чужой фильм');
       }
-      movie.remove();
-      res.status(200)
-        .send({ message: `Фильм с id ${movie.id} успешно удален!` });
+      return movie.remove()
+        .then(() => res.status(200).send({ message: `Фильм с id ${movie.id} успешно удален!` }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

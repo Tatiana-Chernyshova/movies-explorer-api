@@ -34,9 +34,7 @@ const updateUser = (req, res, next) => {
     })
     .then((user) => res.status(200).send(user))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new Error400('Переданы некорректные данные при редактировании пользователя'));
-      } else if (err.code === 11000) {
+      if (err.code === 11000) {
         next(new Error409('Данный email уже зарегистрирован'));
       }
       next(err);

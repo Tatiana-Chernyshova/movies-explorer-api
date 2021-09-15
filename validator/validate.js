@@ -20,7 +20,7 @@ const validateCreateUser = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
   }),
 });
 
@@ -38,12 +38,12 @@ const validateCreateMovie = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().custom(validateUrl),
-    trailer: Joi.string().custom(validateUrl),
+    image: Joi.string().required().custom(validateUrl),
+    trailer: Joi.string().required().custom(validateUrl),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    thumbnail: Joi.string().custom(validateUrl),
-    movieId: Joi.string().required(),
+    thumbnail: Joi.string().required().custom(validateUrl),
+    movieId: Joi.number().required(),
   }),
 });
 
