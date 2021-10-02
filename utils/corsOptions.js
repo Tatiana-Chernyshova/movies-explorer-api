@@ -1,11 +1,11 @@
 const corsOptions = {
   origin: [
-    'https://mrld.nomoredomains.rocks',
-    'http://mrld.nomoredomains.rocks',
+    'https://cherduk-movies.nomoredomains.club',
+    'http://cherduk-movies.nomoredomains.club',
+    'https://nomoreparties.co/beatfilm-movies',
+    'http://nomoreparties.co/beatfilm-movies',
     'localhost:3000',
     'http://localhost:3000',
   ],
   credentials: true,
 };
-
-module.exports = corsOptions;
