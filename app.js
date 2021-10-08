@@ -5,11 +5,13 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const cors = require('cors');
+const bodyParser = require("body-parser")
 const rootRouter = require('./routes/index');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/rateLimiter');
 const corsOptions = require('./utils/corsOptions');
+
 
 require('dotenv').config();
 
@@ -22,7 +24,7 @@ mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(limiter);
 app.use(helmet());
